@@ -1,2 +1,4 @@
 {
+  "dataset" : "data/int1",
+  "num_iter" : 500
 }
