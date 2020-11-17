@@ -33,11 +33,6 @@ USER $NB_UID
 
 #run the following code to define all the functions 
 
-import pandas as pd
-import numpy as np
-import pylab as pl
-from statistics import mode
-
 
 def modify_data(raw_data):
     #we are separating the column "packet sizes"
