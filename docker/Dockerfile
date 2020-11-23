@@ -19,7 +19,7 @@ USER root
 RUN	apt-get install htop
 
 # 3) install packages
-RUN pip install --no-cache-dir pandas numpy pylab mode python-louvain
+RUN pip install --no-cache-dir pandas numpy pylab statistics os sklearn python-louvain
 
 # 4) change back to notebook user
 COPY /run_jupyter.sh /
