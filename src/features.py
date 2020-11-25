@@ -28,3 +28,16 @@ def binary_max_pksz(tbl):
         return "Not Streaming"
     else:
         return "Streaming"
+
+def classifier(raw_data):
+    raw_data = pd.read_csv('/teams/DSC180A_FA20_A00/b05vpnxray/data/unzipped/' + raw_data)
+    
+    #should input features that take data as a parameter
+    #this will create a list of 1/0 's
+    feature1 = prop_pksize_dir12(modify_data(raw_data))
+    feature2 = binarymin_packetsizes(modify_data(raw_data))
+    feature3 = binary_max_pksz(modify_data(raw_data))
+    feature4 = prop_range200_400_dir1(modify_data(raw_data))
+   
+    output =  [feature1, feature2, feature3, feature4]
+    return output.replace({"Not Streaming":0, "Streaming" : 1})
