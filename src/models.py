@@ -49,3 +49,9 @@ def build_model(df):
 
   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
   reg = LogisticRegression(random_state=0).fit(X, y)
+    
+    
+def final_output(df):
+    #at this point, already have model built (reg)
+    #we want to predict Stremaing/Not Streaming
+    return reg.predict(df)
