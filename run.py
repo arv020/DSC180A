@@ -40,18 +40,10 @@ def main(targets):
         
         #data = generate_data(**data_config)
         #save_data(data, **data_config)
-
-     if 'analysis' in targets:
-        
-        
-        
-        
-     if 'features' in targets:
-        
         
         
             
-            
+     
             
      if 'models' in targets:
         
