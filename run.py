@@ -21,39 +21,51 @@ def main(targets):
     data_config = json.load(open('config/data-params.json'))
     analysis_config = json.load(open('config/analysis-params.json'))
     features_config = json.load(open('config/features-params.json'))
+    models_config = json.load(open('config/models-params.json'))
     
 
     if 'data' in targets:
         
         # create the symlink
    
-        link = os.symlink(data_config['raw_data'], outdir, target_is_directory = True)
-        data = get_data(link)
-        data = modify_data(data)
+        filepath = '/teams/DSC180A_FA20_A00/b05vpnxray/data/unzipped'
+        data = os.listdir(filepath)
+        
+        model_df = filter_out_table()
+        
+        #this creates the data df that builds the model
+        model_df = table_output_col(model_df)
+        
 
         
         #data = generate_data(**data_config)
         #save_data(data, **data_config)
 
-    if 'analysis' in targets:
-        
-        findings = analysis_config['dataset']
+     if 'analysis' in targets:
         
         
-
-#         try:
-#             data
-#         except NameError:
-#             data = pd.read_csv(data_config['raw_data'])
-
-#         generate_stats(data, **eda_config)
         
-#         # execute notebook / convert to html
-#         convert_notebook(**eda_config)
         
      if 'features' in targets:
+        
+        
+        
             
-            new_features = features_config["mean_num"]
+            
+            
+     if 'models' in targets:
+        
+        build_df(model_df)
+        
+        #at this point we have a logistic regression model (reg)
+        build_model(model_df)
+     
+    
+     #at the end, we want to return Streaming/Not streaming an input
+     return "success"
+        
+        
+        
 
 
 if __name__ == '__main__':
