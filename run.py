@@ -32,12 +32,14 @@ def main(targets):
      if 'models' in targets:
         
         #here we have a Random Forest Classifier Model built
-        output = build_df(model_df, input_data)
+        output = build_model(model_df, input_data)
+        print(output)
         
         
     
      #at the end, we want to return Streaming/Not streaming an input
-     return output
+      
+     return 
         
         
         
