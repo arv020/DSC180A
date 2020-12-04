@@ -24,7 +24,7 @@ def main(targets):
     
     if 'data' in targets:
 
-        model_df = build_df(table_output_col(filter_out_table()))
+        model_df = build_df(table_output_col(filter_out_table())).replace({"Not Streaming" : 0, "Streaming" :1})
         
         #this creates the data df that builds the model
 
