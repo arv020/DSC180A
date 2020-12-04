@@ -60,7 +60,7 @@ def binarymin_packetsizes(modified_data, num):
         return "Not Streaming"
         
         
- def binary_max_pksz(tbl):
+ def binary_max_pksz(tbl, num):
     num_packets = tbl[tbl["packet_sizes"] >= num].size
     
    
@@ -74,12 +74,12 @@ def prop_range200_400_dir1(tbl, num1, num2):
     b = len(tbl[tbl["packet_dir"] == 1])
     return a/b
     
-def prop_200toentire(tbl):
+def prop_200toentire(tbl, num):
     proportion = tbl[tbl["packet_sizes"] < num]["packet_dir"].size/tbl["packet_sizes"].size
     return proportion
     
     
-def prop_1200toentire(tbl):
+def prop_1200toentire(tbl, num):
     proportion = tbl[tbl["packet_sizes"] > num]["packet_dir"].size/tbl["packet_sizes"].size
     return proportion
     
