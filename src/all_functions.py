@@ -62,8 +62,6 @@ def binarymin_packetsizes(modified_data, num):
         
  def binary_max_pksz(tbl, num):
     num_packets = tbl[tbl["packet_sizes"] >= num].size
-    
-   
     if num_packets > 0:
         return "Streaming"
     else:
@@ -83,7 +81,7 @@ def prop_1200toentire(tbl, num):
     proportion = tbl[tbl["packet_sizes"] > num]["packet_dir"].size/tbl["packet_sizes"].size
     return proportion
     
-def classifier(raw_data):
+def classifier_model(raw_data):
     raw_data = pd.read_csv('/teams/DSC180A_FA20_A00/b05vpnxray/data/unzipped/' + raw_data)
     
     #should input features that take data as a parameter
@@ -97,6 +95,31 @@ def classifier(raw_data):
    
     output =  [feature1, feature2, feature3, feature4, feature5, feature6]
     return output
+
+def filter_lst(lst):
+    for i in range(len(lst)):
+        if lst[i] == 'Not Streaming':
+            lst[i] = 0
+        if lst[i] == 'Streaming':
+            lst[i] = 1
+        else:
+            
+            lst[i] = float(lst[i])
+    return lst
+    
+def classifier_input(raw_data):
+    
+    #should input features that take data as a parameter
+    #this will create a list of 1/0 's
+    feature1 = prop_pksize_dir12(modify_data(raw_data))
+    feature2 = binarymin_packetsizes(modify_data(raw_data))
+    feature3 = binary_max_pksz(modify_data(raw_data))
+    feature4 = prop_range200_400_dir1(modify_data(raw_data))
+    feature5 = prop_200toentire(modify_data(raw_data))
+    feature6 = prop_1200toentire(modify_data(raw_data))   
+    output =  [feature1, feature2, feature3, feature4, feature5, feature6]
+    return [filter_lst(output)] 
+
 def build_df(df):
     ft1 = []
     ft2 = []
@@ -127,6 +150,7 @@ def build_df(df):
 
 
 def build_model(df, input_data):
+    
     X = df.drop(columns = ["output", 'input'])
     y = df['output']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
@@ -134,5 +158,10 @@ def build_model(df, input_data):
 
     clf = RandomForestClassifier(max_depth=2, random_state=0)
     clf.fit(X_train, y_train)
+    output = clf.predict(classifier_input(input_data))
+    if output == 1:
+        output = "Streaming"
+    if output == 0:
+        output = "Not Streaming"
 
-    return "This model has predicted this dataset to be: " + str(clf.predict(input_data))
+    return "This model has predicted this dataset to be: " + str(output)
