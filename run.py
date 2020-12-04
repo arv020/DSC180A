@@ -19,13 +19,11 @@ def main(targets):
     models_config = json.load(open('config/models-params.json'))
     
 
+    filepath = '/teams/DSC180A_FA20_A00/b05vpnxray/data/unzipped'
+    data = os.listdir(filepath)
+    
     if 'data' in targets:
-        
-        # create the symlink
-   
-        filepath = '/teams/DSC180A_FA20_A00/b05vpnxray/data/unzipped'
-        data = os.listdir(filepath)
-        
+
         model_df = build_df(table_output_col(filter_out_table()))
         
         #this creates the data df that builds the model
@@ -34,7 +32,7 @@ def main(targets):
      if 'models' in targets:
         
         #here we have a Random Forest Classifier Model built
-        output = build_df(model_df)
+        output = build_df(model_df, input_data)
         
         
     
