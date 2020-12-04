@@ -1,6 +1,6 @@
 {
 
-  "raw_data" : "data/int1.csv",
+  "path" : "data/int1.csv",
   "mean_num" : 500,
   "min_num" : 32
  
