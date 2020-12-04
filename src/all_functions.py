@@ -126,12 +126,13 @@ def build_df(df):
     return df
 
 
-def final_model(df, input_data):
+def build_model(df, input_data):
     X = df.drop(columns = ["output", 'input'])
     y = df['output']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25)
 
+
     clf = RandomForestClassifier(max_depth=2, random_state=0)
     clf.fit(X_train, y_train)
 
-    return clf.predict(input_data)
+    return "This model has predicted this dataset to be: " + str(clf.predict(input_data))
